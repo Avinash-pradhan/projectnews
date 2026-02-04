@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,13 +27,13 @@ TEMPLATES_DIR = BASE_DIR / 'templates'
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-jw1+0%0=lc3xbq+@&t-b!m&-dilh$q6qspo)^4(#3!mvzb@jj5')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://treena-unpulsating-malena.ngrok-free.dev']
+
 
 
 # Application definition

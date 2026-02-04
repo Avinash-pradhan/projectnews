@@ -3,3 +3,4 @@ djangorestframework
 djangorestframework-simplejwt
 gunicorn
 whitenoise
+python-dotenv
