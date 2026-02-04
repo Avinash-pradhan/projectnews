@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: projectnews
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn Apnaproject.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: SECRET_KEY
+        value: "123456789"
