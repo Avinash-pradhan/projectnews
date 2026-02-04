@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">📰 Apna News</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/saved-news/">Saved News</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout/">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="btn-group">
+        <a href="/?city=Delhi" class="btn btn-primary">Delhi</a>
+        <a href="/?city=Noida" class="btn btn-success">Noida</a>
+        <a href="/" class="btn btn-dark">All</a>
+    </div>
+    <form method="get" class="d-flex">
+      <a href="/create-news/" class="btn btn-success me-2">Create News</a>
+      <input name="search" class="form-control me-2" placeholder="Search news" value="{{ request.GET.search }}">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+
+
+<hr>
+
+{% for n in news %}
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <h4>{{ n.title }}</h4>
+        <p>{{ n.desc }}</p>
+        <small>{{ n.location }} | {{ n.date }} | By: {{ n.author }}</small><br>
+        <a href="/news/{{ n.id }}/" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+        {% if user.is_authenticated %}
+            <a href="/save-news/{{ n.id }}/" class="btn btn-sm btn-outline-success mt-2">Save</a>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+    <p>No news found.</p>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
